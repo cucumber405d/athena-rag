@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "athena-web"
+    metrics_path: "/metrics"
+    static_configs:
+      # Default `python -m athena.web.app` port. Adjust if you run behind a
+      # different host/port (e.g. uvicorn --port 8080).
+      - targets: ["localhost:7860"]

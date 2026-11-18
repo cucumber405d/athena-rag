@@ -1,0 +1,19 @@
+reranker_profiles:
+  none:
+    title: "No reranker"
+    provider: none
+
+  bge_reranker_local:
+    title: "BGE Reranker Local"
+    provider: huggingface
+    model_name: "BAAI/bge-reranker-v2-m3"
+    device: cpu
+
+  qwen3_reranker_local:
+    title: "Qwen3 Reranker Local"
+    provider: huggingface
+    model_name: "Qwen/Qwen3-Reranker-0.6B"
+    device: cuda
+    experimental: true
+
+default_profile: none

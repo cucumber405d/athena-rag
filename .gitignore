@@ -1,0 +1,20 @@
+# Environment / secrets
+.env
+.venv/
+# Python artefacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+# Local data (personal documents, indexes, reports) – never publish
+data/
+# Local tool settings
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+*:Zone.Identifier
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store

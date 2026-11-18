@@ -1,0 +1,54 @@
+{{- if .Values.batchJob.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  # Timestamped name so each `helm upgrade --set batchJob.enabled=true ...` creates a fresh,
+  # immutable Job instead of clashing with (or silently reusing) a previous run's.
+  name: {{ include "athena.fullname" . }}-ingest-{{ now | date "20060102150405" }}
+  labels:
+    {{- include "athena.labels" . | nindent 4 }}
+    app.kubernetes.io/component: ingest-job
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      labels:
+        {{- include "athena.labels" . | nindent 8 }}
+        app.kubernetes.io/component: ingest-job
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: ingest
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["athena", "ingest"]
+          args:
+            - --path
+            - {{ .Values.batchJob.path | quote }}
+            - --domain
+            - {{ .Values.batchJob.domain | quote }}
+            {{- if .Values.batchJob.collection }}
+            - --collection
+            - {{ .Values.batchJob.collection | quote }}
+            {{- end }}
+            {{- if .Values.batchJob.dryRun }}
+            - --dry-run
+            {{- end }}
+          env:
+            {{- include "athena.envFromSecret" . | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+            - name: vector-store-config
+              mountPath: /app/configs/vector_stores.yaml
+              subPath: vector_stores.yaml
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "athena.fullname" . }}-data
+        - name: vector-store-config
+          configMap:
+            name: {{ include "athena.fullname" . }}-vector-store-config
+{{- end }}

@@ -1,0 +1,30 @@
+app:
+  name: Athena
+  mode: local
+  log_level: INFO
+  privacy_mode: LOCAL_ONLY
+
+storage:
+  raw_data_dir: ./data/raw
+  processed_dir: ./data/processed
+  reports_dir: ./data/reports
+
+observability:
+  enabled: true
+
+  logging:
+    format: json
+    level: INFO
+    include_context: true
+    redact_sensitive_data: true
+
+  actuator:
+    enabled: true
+    base_path: /actuator
+
+  prometheus:
+    enabled: true
+    metrics_path: /metrics
+
+  grafana:
+    enabled: true

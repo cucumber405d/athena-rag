@@ -1,0 +1,11 @@
+vector_store:
+  backend: chroma
+
+  qdrant:
+    url: http://localhost:6333
+    api_key_env: QDRANT_API_KEY
+    default_collection: athena_chunks_bge_m3_v1
+
+  chroma:
+    persist_dir: ./data/chroma
+    default_collection: athena_dev_chunks_v1

@@ -1,0 +1,34 @@
+chunking_profiles:
+  # chunk_size / chunk_overlap are in characters (semantic_text_splitter capacity units).
+  # Chunks are cut on semantic boundaries (markdown structure for .md, paragraphs/sentences
+  # otherwise) up to that capacity — not a blind word-count window.
+  default_text:
+    type: token
+    chunk_size: 1600
+    chunk_overlap: 200
+
+  book_default:
+    type: token
+    chunk_size: 2400
+    chunk_overlap: 300
+
+  cv_default:
+    type: token
+    chunk_size: 1000
+    chunk_overlap: 150
+
+  pdf_page_aware:
+    type: page_aware
+    chunk_size: 1600
+    chunk_overlap: 200
+
+  audio_transcript:
+    type: time_window
+    window_seconds: 60
+    overlap_seconds: 10
+
+  video_scene:
+    type: scene_or_time_window
+    keyframe_interval_seconds: 30
+
+default_profile: default_text

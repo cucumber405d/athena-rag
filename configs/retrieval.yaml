@@ -1,0 +1,7 @@
+retrieval:
+  default_mode: hybrid
+  vector_top_k: 30
+  bm25_top_k: 30
+  rerank_top_n: 8
+  fusion: rrf
+  filter_pushdown: true

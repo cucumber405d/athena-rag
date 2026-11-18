@@ -1,0 +1,55 @@
+image:
+  repository: athena
+  tag: 0.1.0
+  # Image is built locally into minikube's Docker daemon (eval $(minikube docker-env)) — no registry.
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: NodePort
+  port: 7860
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: "2"
+    memory: 4Gi
+
+probes:
+  liveness:
+    path: /health
+  readiness:
+    path: /actuator/health
+
+data:
+  # Shared by the web Deployment and the ingest Job — raw/, processed/, reports/ (see
+  # configs/app.yaml storage.* paths, all relative to the container's /app workdir).
+  storageSize: 5Gi
+
+qdrant:
+  image: qdrant/qdrant:v1.9.0
+  httpPort: 6333
+  grpcPort: 6334
+  storageSize: 5Gi
+
+secrets:
+  qdrantApiKey: ""
+  openaiApiKey: ""
+  anthropicApiKey: ""
+  lmstudioApiKey: "lm-studio"
+  vllmApiKey: "vllm"
+
+# One-off batch ingestion — disabled by default. Enable per-run with:
+#   helm upgrade --install athena ./deploy/helm/athena \
+#     --set batchJob.enabled=true \
+#     --set batchJob.path=/app/data/raw/books \
+#     --set batchJob.domain=tech
+batchJob:
+  enabled: false
+  path: /app/data/raw
+  domain: tech
+  collection: ""
+  dryRun: false

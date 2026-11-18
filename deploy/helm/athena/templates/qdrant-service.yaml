@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "athena.fullname" . }}-qdrant
+  labels:
+    {{- include "athena.labels" . | nindent 4 }}
+spec:
+  # Headless — required by StatefulSet as its governing service (stable pod DNS), and it's
+  # the hostname baked into the vector-store ConfigMap above.
+  clusterIP: None
+  selector:
+    {{- include "athena.labels" . | nindent 4 }}
+    app.kubernetes.io/component: qdrant
+  ports:
+    - name: http
+      port: {{ .Values.qdrant.httpPort }}
+      targetPort: {{ .Values.qdrant.httpPort }}
+    - name: grpc
+      port: {{ .Values.qdrant.grpcPort }}
+      targetPort: {{ .Values.qdrant.grpcPort }}

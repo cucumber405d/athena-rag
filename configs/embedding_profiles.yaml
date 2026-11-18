@@ -1,0 +1,36 @@
+embedding_profiles:
+  bge_m3_local:
+    title: "BGE-M3 Local"
+    provider: huggingface
+    model_name: "BAAI/bge-m3"
+    dimension: 1024
+    device: cpu
+    normalize: true
+    supports_multilingual: true
+    supports_sparse: true
+    supports_multivector: true
+    default_for_domains:
+      - job
+      - personal
+      - tech
+      - user
+
+  qwen3_embedding_06b_local:
+    title: "Qwen3 Embedding 0.6B Local"
+    provider: ollama
+    model_name: "qwen3-embedding:0.6b"
+    dimension: 1024
+    device: local
+    normalize: true
+    experimental: true
+
+  qwen3_embedding_4b_local:
+    title: "Qwen3 Embedding 4B Local"
+    provider: tei
+    model_name: "Qwen/Qwen3-Embedding-4B"
+    dimension: 2560
+    device: cuda
+    normalize: true
+    experimental: true
+
+default_profile: bge_m3_local

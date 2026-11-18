@@ -1,0 +1,42 @@
+llm_targets:
+  local_lmstudio:
+    title: "Local LM Studio"
+    provider: openai_compatible
+    base_url: "http://localhost:1234/v1"
+    api_key_env: LMSTUDIO_API_KEY
+    default_model: "local-model"
+    privacy_level: local
+
+  local_ollama:
+    title: "Local Ollama"
+    provider: openai_compatible
+    base_url: "http://localhost:11434/v1"
+    api_key: ollama
+    default_model: "qwen3:8b"
+    privacy_level: local
+
+  local_vllm:
+    title: "Local vLLM"
+    provider: openai_compatible
+    base_url: "http://localhost:8000/v1"
+    api_key_env: VLLM_API_KEY
+    default_model: "Qwen/Qwen3-8B"
+    privacy_level: local_or_lan
+
+  frontier_openai:
+    title: "OpenAI Frontier"
+    provider: openai_compatible
+    base_url: "https://api.openai.com/v1"
+    api_key_env: OPENAI_API_KEY
+    default_model: "gpt-4.1"
+    privacy_level: external
+
+  frontier_anthropic:
+    title: "Anthropic Frontier"
+    provider: anthropic
+    base_url: "https://api.anthropic.com/v1"
+    api_key_env: ANTHROPIC_API_KEY
+    default_model: "claude-sonnet-5"
+    privacy_level: external
+
+default_target: local_lmstudio

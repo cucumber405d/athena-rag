@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "athena.fullname" . }}-data
+  labels:
+    {{- include "athena.labels" . | nindent 4 }}
+spec:
+  # RWO is fine here: minikube is single-node, so the web Deployment pod and the ingest
+  # Job pod can mount this volume at the same time as long as they land on the same node.
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.data.storageSize }}

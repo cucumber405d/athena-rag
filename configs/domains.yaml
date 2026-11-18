@@ -1,0 +1,49 @@
+domains:
+  - id: job
+    title: Job Search
+    description: CV, vacancies, recruiter emails, interview notes
+    default_access_level: private
+    default_collection: athena_chunks_bge_m3_v1
+    frontier_allowed: false
+
+  - id: personal
+    title: Personal Knowledge
+    description: Personal notes, documents, scans
+    default_access_level: private
+    default_collection: athena_chunks_bge_m3_v1
+    frontier_allowed: false
+
+  - id: tech
+    title: Technical Library
+    description: Books, documentation, courses
+    default_access_level: private
+    default_collection: athena_chunks_bge_m3_v1
+    frontier_allowed: true
+
+  - id: media
+    title: Media
+    description: Photos, audio, video
+    default_access_level: private
+    default_collection: athena_media_vectors_v1
+    frontier_allowed: false
+
+  - id: musik
+    title: Music
+    description: Books and reference material about music theory, history, and instruments
+    default_access_level: private
+    default_collection: athena_chunks_bge_m3_v1
+    frontier_allowed: true
+
+  - id: books
+    title: Books
+    description: General books, fiction, and non-fiction literature
+    default_access_level: private
+    default_collection: athena_chunks_bge_m3_v1
+    frontier_allowed: true
+
+  - id: user
+    title: User Domain
+    description: Custom user data
+    default_access_level: private
+    default_collection: athena_chunks_bge_m3_v1
+    frontier_allowed: false
